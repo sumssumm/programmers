@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
@@ -36,23 +37,52 @@ int main() {
   std::cout << answer[0] << " " << answer[1] << "\n";
 }
 
-// vector<int> solution(int n, vector<string> words) {
-//   vector<int> answer;
+#include <string>
+#include <vector>
+#include <iostream>
 
-//   int cnt = 1;
-//   for (int i = 0; i < words.size() - 1; ++i) {
-//     if (words[i][words[i].size() - 1] != words[i + 1][0])
-//       break;
-//     ++cnt;
-//   }
+using namespace std;
 
-//   if (cnt != n) {
-//     answer.push_back(cnt % n);
-//     answer.push_back(cnt / n);
-//   } else {
-//     answer.push_back(0);
-//     answer.push_back(0);
-//   }
+vector<int> solution(int n, vector<string> words) {
+    vector<int> answer;
+    vector<string> used;
+    used.push_back(words[0]);
 
-//   return answer;
-// }
+     for (int i = 0; i < words.size(); ++i) {
+         for (int j = 0; j < used.size(); ++j) {
+            if (i > 0 && words[i] == used[j]) {
+                answer.push_back(i % n + 1);
+                answer.push_back(i / n + 1);
+            return answer;
+            }
+        }
+    if (i > 0 && words[i - 1].back() != words[i].front()) {
+    answer.push_back(i % n + 1);
+    answer.push_back(i / n + 1);
+    return answer;
+    }
+    if (i + 1 == words.size()) {
+      answer.push_back(0);
+      answer.push_back(0);
+    return answer;
+    }
+     if (i > 0)
+        used.push_back(words[i]);
+  }
+
+    return answer;
+}
+
+#include <string>
+#include <vector>
+#include <unordered_set>
+
+vector<int> solution(int n, vector<string> words) {
+  unordered_set<string> usedWord;
+
+  for (int i = 0; i < words.size(); ++i) {
+    if (!usedWord.insert(words[i]).second || (i > 0 && words[i - 1].at(words[i].size() - 1) != words[i][0]))
+      return {i % n + 1, i / n + 1};
+  }
+  return {0, 0};
+}
