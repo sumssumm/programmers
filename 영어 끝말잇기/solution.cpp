@@ -81,7 +81,7 @@ vector<int> solution(int n, vector<string> words) {
   unordered_set<string> usedWord;
 
   for (int i = 0; i < words.size(); ++i) {
-    if (!usedWord.insert(words[i]).second || (i > 0 && words[i - 1].at(words[i].size() - 1) != words[i][0]))
+    if (!usedWord.insert(words[i]).second || (i > 0 && words[i - 1].at(words[i - 1].size() - 1) != words[i].at(0)))
       return {i % n + 1, i / n + 1};
   }
   return {0, 0};
